@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<!-- 文件同步配置 -->
+	<FileSync>
+		<!-- 任务信息，可有多个 -->
+		<Task>
+			<!-- 源路径 -->
+			<SourcePath></SourcePath>
+			<!-- 路径下对应的文件列表文件 -->
+			<SourceFile></SourceFile>
+			<!-- 目标路径 -->
+			<ToPath></ToPath>
+			<!-- 目标IP -->
+			<ToIP></ToIP>			
+			<UserName></UserName>
+		</Task>		
+	</FileSync>
+	<Basic>
+		<MQURL>tcp://192.168.40.31:61616</MQURL>
+		<getFilePath>"/test 123"</getFilePath>
+		<LocalIP>192.168.40.31</LocalIP>
+		<!-- 目标机器的用户名 -->
+		<TOUserName>root</TOUserName>		
+	</Basic>
+</Config>

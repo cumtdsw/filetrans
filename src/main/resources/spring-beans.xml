@@ -11,7 +11,7 @@
       	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
       	">
 	<context:component-scan base-package="com.dsw.filetrans" />
-	
+
 	<context:property-placeholder location="classpath:application.properties" />
 	<jdbc:initialize-database data-source="dataSource"
 		ignore-failures="DROPS">
@@ -51,4 +51,25 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	<!-- 容器启动后执行：需要执行初始化方法，所以必须直接实例化，取消懒加载 -->
+	<bean id="initDataService" class="com.dsw.filetrans.service.init.imp.InitDataServiceImp"
+		init-method="init" lazy-init="false" />
+
+	<!-- spring thread pool executor -->
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池维护线程的最少数量 -->
+		<property name="corePoolSize" value="5" />
+		<!-- 允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="200" />
+		<!-- 线程池维护线程的最大数量 -->
+		<property name="maxPoolSize" value="10" />
+		<!-- 缓存队列 -->
+		<property name="queueCapacity" value="20" />
+		<!-- 对拒绝task的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+
 </beans> 

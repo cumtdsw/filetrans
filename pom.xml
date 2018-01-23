@@ -153,6 +153,12 @@
 			<version>1.6.11</version>
 		</dependency>
 
+		<!-- dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 		<!-- jms -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -171,6 +177,13 @@
 			<artifactId>spring-messaging</artifactId>
 			<version>4.1.6.RELEASE</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<!-- GSON -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
 		</dependency>
 	</dependencies>
 </project>

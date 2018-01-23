@@ -63,12 +63,12 @@
 	</jms:listener-container>
 
 	<!-- 定义Topic监听器 -->
-	<!-- <jms:listener-container destination-type="topic"
+	<jms:listener-container destination-type="topic"
 		container-type="default" connection-factory="connectionFactory"
 		acknowledge="auto">
 		<jms:listener destination="jacky.topic" ref="topicReceiver1" />
 		<jms:listener destination="jacky.topic" ref="topicReceiver2" />
-	</jms:listener-container> -->
+	</jms:listener-container>
 
 	<!-- 消息消费者 end -->
 </beans>
