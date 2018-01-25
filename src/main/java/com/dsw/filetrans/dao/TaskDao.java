@@ -15,13 +15,13 @@ public interface TaskDao {
 	 * @param model
 	 * @return
 	 */
-	public boolean add(TaskModel model);
+	public boolean add(TaskModel taskModel);
 	/**
 	 * 更新task信息
 	 * @param model
 	 * @return
 	 */
-	public boolean update(TaskModel model);
+	public boolean update(TaskModel taskModel);
 	
 	/**
 	 * 通过ID查询task

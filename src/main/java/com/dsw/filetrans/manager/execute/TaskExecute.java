@@ -66,19 +66,19 @@ public class TaskExecute implements Callable<String> {
 	private void start() {
 		if (nowTask == null)
 			return;
-		changeTaskStatus(Constants.taskStatus.get("executing"));
+		//changeTaskStatus(Constants.taskStatus.get("executing"));
 		onTaskStart();
 		TaskResult taskResult = new TaskResult();
 		result = beginTransfer();
 		taskResult.setTaskID(nowTask.getId());
 		if (result == 0) {
 			onTaskSuccess();
-			changeTaskStatus(Constants.taskStatus.get("completed"));
+			//changeTaskStatus(Constants.taskStatus.get("completed"));
 			taskResult.setResult(0);
 			taskResult.setNote("");
 		} else {
 			onTaskStop();
-			changeTaskStatus(Constants.taskStatus.get("failed"));
+			//changeTaskStatus(Constants.taskStatus.get("failed"));
 			taskResult.setResult(1);
 			taskResult.setNote(errorMsg);
 		}
@@ -190,9 +190,9 @@ public class TaskExecute implements Callable<String> {
 
 	private void changeTaskStatus(int status) {
 		taskService.updateStatus(nowTask.getId(), status);
-		if (status != Constants.taskStatus.get("executing")) {
+		/*if (status != Constants.taskStatus.get("executing")) {
 			return;
-		}
+		}*/
 		taskService.updateTime(nowTask.getId(), new Date(), 0);
 	}
 

@@ -22,8 +22,8 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	static Logger logger = LogManager.getLogger(TaskDaoImpl.class);
 
 	@Override
-	public boolean add(TaskModel model) {
-		persist(model);
+	public boolean add(TaskModel taskModel) {
+		persist(taskModel);
 		return true;
 	}
 	@Override
@@ -41,8 +41,8 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	}
 
 	@Override
-	public boolean update(TaskModel model) {
-		getSession().update(model);
+	public boolean update(TaskModel taskModel) {
+		getSession().update(taskModel);
 		return true;
 	}
 

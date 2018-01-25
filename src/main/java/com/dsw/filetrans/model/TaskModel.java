@@ -44,7 +44,7 @@ public class TaskModel {
 	 * 状态
 	 */
 	@Column(name="status")
-	private Integer status;
+	private int status;
 	
 	/**
 	 * 源文件类型(文件、文件组、文件夹)
@@ -103,10 +103,10 @@ public class TaskModel {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public Integer getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public Integer getDataType() {

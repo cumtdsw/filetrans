@@ -1,6 +1,5 @@
 package com.dsw.filetrans.service.imp;
 
-import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsw.filetrans.dao.TaskDao;
 import com.dsw.filetrans.model.TaskModel;
@@ -22,9 +22,11 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	protected TaskDao dao;
 
+	@Transactional
 	@Override
 	public boolean add(TaskModel task) {
-		TaskModel hasModel = dao.getTaskByID(task.getId());
+		return dao.add(task);
+		/*TaskModel hasModel = dao.getTaskByID(task.getId());
 		if(hasModel==null){
 			return dao.add(task);
 		}else if(hasModel.getStatus()==2||hasModel.getStatus()==3){
@@ -32,14 +34,16 @@ public class TaskServiceImpl implements TaskService {
 		}else{
 			logger.error("Task[Task ID:"+task.getId()+"]: is excuting");
 			return false;
-		}
+		}*/
 	}
 
+	@Transactional
 	@Override
 	public boolean update(TaskModel task) {
 		return dao.update(task);
 	}
 
+	@Transactional
 	@Override
 	public boolean updateStatus(String id , int status) {
 		String where = " ID = '"+ id+"'";
@@ -55,7 +59,7 @@ public class TaskServiceImpl implements TaskService {
 	public TaskModel getTaskByID(String id) {
 		return dao.getTaskByID(id);
 	}
-
+	@Transactional
 	@Override
 	public boolean updateTime(String id, Date time, int type) {
 		boolean result = false;		

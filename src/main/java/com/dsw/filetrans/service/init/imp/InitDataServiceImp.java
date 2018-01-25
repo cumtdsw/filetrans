@@ -1,5 +1,6 @@
 package com.dsw.filetrans.service.init.imp;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,8 +26,8 @@ public class InitDataServiceImp implements InitDataService {
 		logger.info("init constantsInit.................");
 		Document doc = null;
 		try {
-			doc = Dom4jUtil.getDocument("/config.xml");
-		} catch (DocumentException e) {
+			doc = Dom4jUtil.getDocument("config.xml");
+		} catch (DocumentException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		Element rootElement = doc.getRootElement();

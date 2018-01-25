@@ -5,7 +5,6 @@
 <configuration status="error">
 	<Properties>
 		<Property name="fileName">front.log</Property>
-		<Property name="backupFilePatch">d:/usr/front/log/</Property>
 	</Properties>
 	<!--先定义所有的appender -->
 	<appenders>
@@ -18,12 +17,6 @@
 			<PatternLayout
 				pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n" />
 		</Console>
-		<File name="log" fileName="target/testdsw2.log" append="true">
-			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n" />
-		</File>
-
-
 		<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
 		<RollingFile name="RollingFile" fileName="${backupFilePatch}${fileName}"
 			filePattern="${backupFilePatch}$${date:yyyy-MM}/app-%d{yyyyMMddHHmmssSSS}.log.gz">
@@ -41,7 +34,6 @@
 	<loggers>
 		<!--建立一个默认的root的logger -->
 		<Root level="info">
-			<AppenderRef ref="log" />
 			<AppenderRef ref="Console" />
 		</Root>
 	</loggers>
