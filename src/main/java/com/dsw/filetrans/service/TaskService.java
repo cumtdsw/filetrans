@@ -4,12 +4,23 @@ import java.util.Date;
 import java.util.List;
 
 import com.dsw.filetrans.model.TaskModel;
+import com.dsw.filetrans.query.condition.TaskModelCondition;
+import com.dsw.filetrans.query.result.QueryResult;
 /**
  * 任务Service
  * @author Zhuxs
  *
  */
 public interface TaskService {
+	
+	public QueryResult queryTask(TaskModelCondition condition);
+	
+	/**
+	 * 发起新的传输任务
+	 * @param task
+	 * @return
+	 */
+	public boolean startNewTask(TaskModel task);
 	/**
 	 * 添加任务
 	 * @param task

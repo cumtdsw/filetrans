@@ -1,6 +1,5 @@
 package com.dsw.filetrans.dao;
 
-import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

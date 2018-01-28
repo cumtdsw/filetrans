@@ -51,9 +51,10 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- 拦截匹配的请求，这里所有请求采用名字为lei-dispatcher的DispatcherServlet处理 -->
+	<!-- 拦截匹配的请求，这里所有请求采用名字为dsw-dispatcher的DispatcherServlet处理 -->
 	<servlet-mapping>
 		<servlet-name>dsw-dispatcher</servlet-name>
-		<url-pattern>/*</url-pattern>
+			<!-- 如果写成/*,当访问*.jsp时，会交给controller,找不到时会返回jsp的源码 ，当写成/时,不会匹配*.jsp-->
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -4,12 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import com.dsw.filetrans.model.TaskModel;
+import com.dsw.filetrans.query.condition.TaskModelCondition;
+import com.dsw.filetrans.query.result.QueryResult;
 /**
  * 任务DAO
  * @author Zhuxs
  *
  */
 public interface TaskDao {
+	
+	public QueryResult query(TaskModelCondition condition);
 	/**
 	 * 插入task信息到表
 	 * @param model

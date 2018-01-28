@@ -2,6 +2,7 @@ package com.dsw.filetrans.service.imp;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,9 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dsw.filetrans.Constants;
 import com.dsw.filetrans.dao.TaskDao;
+import com.dsw.filetrans.jms.JMSProducer;
+import com.dsw.filetrans.message.TaskMessage;
 import com.dsw.filetrans.model.TaskModel;
+import com.dsw.filetrans.query.condition.TaskModelCondition;
+import com.dsw.filetrans.query.result.QueryResult;
 import com.dsw.filetrans.service.TaskService;
+import com.dsw.filetrans.util.JsonUtil;
 import com.dsw.filetrans.util.TimeUtil;
 
 @Service
@@ -21,6 +28,9 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
 	protected TaskDao dao;
+	
+	@Autowired
+	protected JMSProducer jmsProducer;
 
 	@Transactional
 	@Override
@@ -84,6 +94,25 @@ public class TaskServiceImpl implements TaskService {
 			sb.append(" createTime <= '"+now+"' and createTime > '"+zero+"'");
 		}
 		return dao.querySize(sb.toString());
+	}
+
+	@Override
+	@Transactional
+	public QueryResult queryTask(TaskModelCondition condition) {
+		return dao.query(condition);
+	}
+
+	@Override
+	public boolean startNewTask(TaskModel task) {
+		TaskMessage taskMsg = new TaskMessage();
+		taskMsg.setSourceIP(Constants.LocalIP);
+		taskMsg.setSourcePath(task.getDataPath());
+		taskMsg.setTaskID(UUID.randomUUID().toString());
+		taskMsg.setToIP(task.getToIP());
+		taskMsg.setToPath(task.getToPath());
+		String message = JsonUtil.Object2Json(taskMsg);
+		jmsProducer.send2Queue("jacky.queue", message);
+		return true;
 	}
 
 

@@ -19,10 +19,10 @@
 	<!--Spring 的配置文件中一定要配置这一项 -->
 	<task:annotation-driven />
 	<context:property-placeholder location="classpath:application.properties" />
-	<jdbc:initialize-database data-source="dataSource"
+	<!-- <jdbc:initialize-database data-source="dataSource"
 		ignore-failures="DROPS">
 		<jdbc:script location="classpath:db-schema-mysql.sql" />
-	</jdbc:initialize-database>
+	</jdbc:initialize-database> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
