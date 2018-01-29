@@ -20,7 +20,8 @@ public interface TaskService {
 	 * @param task
 	 * @return
 	 */
-	public boolean startNewTask(TaskModel task);
+	public boolean startTask(TaskModel task);
+	
 	/**
 	 * 添加任务
 	 * @param task

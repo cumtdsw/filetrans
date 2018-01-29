@@ -34,10 +34,22 @@ public class TaskModelController {
 		try {
 			taskModel = JsonUtil.json2Object(json, TaskModel.class);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean result = taskService.startNewTask(taskModel);
+		boolean result = taskService.startTask(taskModel);
+		if (result)
+			return "SUCCESS";
+		return "FAILED";
+	}
+	
+	@RequestMapping(value = "reSend", method = RequestMethod.GET)
+	@ResponseBody
+	public String reSendTask(String taskId) {
+		TaskModel taskModel = taskService.getTaskByID(taskId);
+		boolean result = false;
+		if (taskModel != null) {
+			result = taskService.startTask(taskModel);
+		}
 		if (result)
 			return "SUCCESS";
 		return "FAILED";

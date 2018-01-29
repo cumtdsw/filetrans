@@ -33,10 +33,13 @@ public class TaskExcuteImp implements TaskExcute {
 	public Future<Integer> excute(TaskModel taskModel) {
 		logger.info("now enter TaskExcuteImp.excute, taskId:" + taskModel.getId());
 		Integer result = -2;
-		taskService.add(taskModel);
-		//1.记录任务信息
+		TaskModel taskModelExisting = taskService.getTaskByID(taskModel.getId());
+		if (taskModelExisting == null) {
+			taskService.add(taskModel);
+		}
+		// 1.记录任务信息
 		taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_EXCUTING);
-		//2.相关参数条件判断
+		// 2.相关参数条件判断
 		String path = taskModel.getDataPath();
 		File file = new File(path);
 		logger.info("file is directory? :" + file.isDirectory());
@@ -47,21 +50,21 @@ public class TaskExcuteImp implements TaskExcute {
 			}
 		}
 		if (!file.exists()) {
-			//如果文件不存在，更新任务执行状态为失败
+			// 如果文件不存在，更新任务执行状态为失败
 			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_FAILED);
 			logger.error("File doesn't exist!");
 			return new AsyncResult<Integer>(-1);
 		}
 		String commands[] = { "rsync", "-aR", taskModel.getDataPath(),
 				Constants.TOUserName + "@" + taskModel.getToIP() + ":" + taskModel.getToPath() };
-		result =  transfer(commands, taskModel);
+		result = transfer(commands, taskModel);
 		if (result != 0) {
-			//如果执行结果不为0，更新任务状态为失败 
+			// 如果执行结果不为0，更新任务状态为失败
 			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_FAILED);
 		} else {
 			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_COMPLETED);
 		}
-		
+
 		logger.info("now leave TaskExcuteImp.excute, taskId:" + taskModel.getId());
 		return new AsyncResult<Integer>(result);
 	}
@@ -119,28 +122,27 @@ public class TaskExcuteImp implements TaskExcute {
 		}
 		return error;
 	}
-	
-	private String mkDir(String path, TaskModel taskModel){
-		String mkDirCommand = "ssh "+Constants.TOUserName+"@"+taskModel.getToIP()+" mkdir -p "+path ;
+
+	private String mkDir(String path, TaskModel taskModel) {
+		String mkDirCommand = "ssh " + Constants.TOUserName + "@" + taskModel.getToIP() + " mkdir -p " + path;
 		Process pcs = null;
 		String msg = "";
 		int result = -1;
 		try {
 			pcs = Runtime.getRuntime().exec(mkDirCommand);
-			getInputStream(pcs.getInputStream(),"INPUT", taskModel);
+			getInputStream(pcs.getInputStream(), "INPUT", taskModel);
 			getInputStream(pcs.getErrorStream(), "ERROR", taskModel);
 			result = pcs.waitFor();
-			if(result == 0){
+			if (result == 0) {
 				msg = "mkdir successful";
 				logger.info(msg);
 			}
 		} catch (Exception e) {
-			logger.error("make DIR error",e);
-		}finally{
-//			pcs.destroy();
+			logger.error("make DIR error", e);
+		} finally {
+			// pcs.destroy();
 		}
 		return msg;
 	}
-	
-	
+
 }

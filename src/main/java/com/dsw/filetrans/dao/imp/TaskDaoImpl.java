@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.dsw.filetrans.dao.AbstractDao;
 import com.dsw.filetrans.dao.TaskDao;
@@ -85,7 +84,6 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional
 	@Override
 	public QueryResult query(TaskModelCondition condition) {
 		if (condition == null) {

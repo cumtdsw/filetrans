@@ -32,13 +32,6 @@ public class JMSConsumerImp implements JMSConsumer {
 
 	@Override
 	public void onMessage(Message message) {
-		/*try {
-			String msg = ((TextMessage) message).getText();
-			System.out.println("QueueReceiver接收到消息:" + msg);
-			message.acknowledge();//// 手动向broker确认接收成功，如果发生异常，就不反回ack
-		} catch (JMSException e) {
-			e.printStackTrace();
-		} */
 		try {
 			String text = ((TextMessage) message).getText();
 			logger.info("msg:" + text);
