@@ -26,7 +26,7 @@ import com.dsw.filetrans.util.JsonUtil;
 
 /**
  * 文件Controller，用于windows和Linux之间传输数据（主要调用上传接口)
- * @author Administrator
+ * @author dsw
  *
  */
 @Controller

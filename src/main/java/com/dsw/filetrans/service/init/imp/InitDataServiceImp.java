@@ -39,8 +39,6 @@ public class InitDataServiceImp implements InitDataService {
 		Constants.MQURL = rootElement.element("Basic").element("MQURL").getTextTrim();
 		logger.info("MQURL: " + Constants.MQURL);
 
-
-
 	}
 
 }

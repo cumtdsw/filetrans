@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.dsw.filetrans.jms.JMSProducer;
 
+/**
+ * 消息发送接口
+ * @author dsw
+ *
+ */
 @Service
 public class JMSProducerImp implements JMSProducer {
 

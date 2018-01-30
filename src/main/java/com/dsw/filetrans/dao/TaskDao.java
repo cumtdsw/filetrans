@@ -8,7 +8,7 @@ import com.dsw.filetrans.query.condition.TaskModelCondition;
 import com.dsw.filetrans.query.result.QueryResult;
 /**
  * 任务DAO
- * @author Zhuxs
+ * @author dsw
  *
  */
 public interface TaskDao {

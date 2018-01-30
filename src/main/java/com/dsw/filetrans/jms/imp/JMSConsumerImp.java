@@ -19,6 +19,11 @@ import com.dsw.filetrans.service.TaskService;
 import com.dsw.filetrans.service.sync.TaskExcute;
 import com.dsw.filetrans.util.JsonUtil;
 
+/**
+ * 消息监听
+ * @author dsw
+ *
+ */
 @Service
 public class JMSConsumerImp implements JMSConsumer {
 	static Logger logger = LogManager.getLogger(JMSConsumerImp.class);

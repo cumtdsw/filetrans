@@ -13,6 +13,11 @@ import com.dsw.filetrans.query.result.QueryResult;
 import com.dsw.filetrans.service.TaskService;
 import com.dsw.filetrans.util.JsonUtil;
 
+/**
+ * 传输任务服务Controller
+ * @author dsw
+ *
+ */
 @RequestMapping("task")
 @Controller
 public class TaskModelController {
