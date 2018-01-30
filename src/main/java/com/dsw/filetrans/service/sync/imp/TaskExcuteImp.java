@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import com.dsw.filetrans.Constants;
-import com.dsw.filetrans.StatusFlag;
 import com.dsw.filetrans.model.TaskModel;
 import com.dsw.filetrans.service.TaskService;
 import com.dsw.filetrans.service.sync.TaskExcute;
@@ -38,7 +37,7 @@ public class TaskExcuteImp implements TaskExcute {
 			taskService.add(taskModel);
 		}
 		// 1.记录任务信息
-		taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_EXCUTING);
+		taskService.updateStatus(taskModel.getId(), Constants.TASK_STATUS_EXCUTING);
 		// 2.相关参数条件判断
 		String path = taskModel.getDataPath();
 		File file = new File(path);
@@ -51,7 +50,7 @@ public class TaskExcuteImp implements TaskExcute {
 		}
 		if (!file.exists()) {
 			// 如果文件不存在，更新任务执行状态为失败
-			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_FAILED);
+			taskService.updateStatus(taskModel.getId(), Constants.TASK_STATUS_FAILED);
 			logger.error("File doesn't exist!");
 			return new AsyncResult<Integer>(-1);
 		}
@@ -60,9 +59,9 @@ public class TaskExcuteImp implements TaskExcute {
 		result = transfer(commands, taskModel);
 		if (result != 0) {
 			// 如果执行结果不为0，更新任务状态为失败
-			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_FAILED);
+			taskService.updateStatus(taskModel.getId(), Constants.TASK_STATUS_FAILED);
 		} else {
-			taskService.updateStatus(taskModel.getId(), StatusFlag.TASK_STATUS_COMPLETED);
+			taskService.updateStatus(taskModel.getId(), Constants.TASK_STATUS_COMPLETED);
 		}
 
 		logger.info("now leave TaskExcuteImp.excute, taskId:" + taskModel.getId());
@@ -143,6 +142,12 @@ public class TaskExcuteImp implements TaskExcute {
 			// pcs.destroy();
 		}
 		return msg;
+	}
+
+	@Override
+	public Future<Integer> excuteForWindows(TaskModel taskModel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

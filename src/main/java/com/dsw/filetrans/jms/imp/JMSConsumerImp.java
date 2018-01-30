@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsw.filetrans.Constants;
-import com.dsw.filetrans.StatusFlag;
 import com.dsw.filetrans.jms.JMSConsumer;
 import com.dsw.filetrans.message.TaskMessage;
 import com.dsw.filetrans.model.TaskModel;
@@ -54,7 +53,7 @@ public class JMSConsumerImp implements JMSConsumer {
 			TaskModel task = new TaskModel();
 			task.setCreateTime(new Date());
 			task.setId(taskmsg.getTaskID());
-			task.setStatus(StatusFlag.TASK_STATUS_WATITING);
+			task.setStatus(Constants.TASK_STATUS_WATITING);
 			task.setToIP(taskmsg.getToIP());
 			task.setToPath(taskmsg.getToPath());
 			task.setDataPath(taskmsg.getSourcePath());

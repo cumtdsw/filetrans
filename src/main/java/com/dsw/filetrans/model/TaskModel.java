@@ -65,7 +65,7 @@ public class TaskModel {
 	private String toIP;
 	
 	/**
-	 * 目标路径
+	 * 目标路径(必须是文件路径，此处赋值是要加限制）
 	 */
 	@Column(name="toPath")
 	private String toPath;
